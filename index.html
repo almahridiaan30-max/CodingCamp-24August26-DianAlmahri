@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="To-Do List Life Dashboard — Dashboard produktivitas pribadi" />
+  <title>Life Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+  <header class="header">
+    <div class="header-inner container">
+
+      <div class="greeting-section">
+        <p id="greeting-text" class="greeting-text">Good Morning!</p>
+        <h1 id="greeting-name" class="greeting-name">Selamat Datang</h1>
+        <p id="date-display" class="date-display"></p>
+      </div>
+
+      <div class="header-right">
+        <div id="clock-display" class="clock-display" aria-label="Jam saat ini"></div>
+        <div class="header-controls">
+          <button
+            id="theme-toggle"
+            class="btn-icon"
+            aria-label="Toggle dark/light mode"
+            title="Toggle tema"
+          >
+            <span id="theme-icon">🌙</span>
+          </button>
+          <button
+            id="edit-name-btn"
+            class="btn-icon"
+            aria-label="Ubah nama"
+            title="Ubah nama"
+          >
+            ✏️
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <div id="name-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-card">
+      <h2 id="modal-title" class="modal-title">Ubah Nama</h2>
+      <label for="name-input" class="form-label">Nama kamu</label>
+      <input
+        type="text"
+        id="name-input"
+        class="form-input"
+        placeholder="Masukkan nama..."
+        maxlength="40"
+        autocomplete="off"
+      />
+      <div class="modal-actions">
+        <button id="save-name-btn" class="btn btn-primary">Simpan</button>
+        <button id="cancel-name-btn" class="btn btn-ghost">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="main container">
+
+    <div class="dashboard-row">
+
+      <section class="card card-timer" aria-labelledby="timer-title">
+        <div class="card-header">
+          <h2 id="timer-title" class="card-title">
+            <span class="card-icon">⏱</span> Focus Timer
+          </h2>
+        </div>
+        <div class="timer-display" aria-live="polite" aria-label="Timer countdown">
+          <span id="timer-minutes">25</span>:<span id="timer-seconds">00</span>
+        </div>
+        <p class="timer-label" id="timer-status">Pomodoro · 25 menit</p>
+        <div class="timer-controls">
+          <button id="timer-start" class="btn btn-primary" aria-label="Mulai timer">▶ Start</button>
+          <button id="timer-stop" class="btn btn-secondary" aria-label="Hentikan timer" disabled>⏸ Stop</button>
+          <button id="timer-reset" class="btn btn-ghost" aria-label="Reset timer">↺ Reset</button>
+        </div>
+      </section>
+
+      <section class="card card-links" aria-labelledby="links-title">
+        <div class="card-header">
+          <h2 id="links-title" class="card-title">
+            <span class="card-icon">🔗</span> Quick Links
+          </h2>
+        </div>
+
+        <div id="links-grid" class="links-grid" role="list"></div>
+
+        <div class="add-link-form">
+          <div class="add-link-inputs">
+            <input
+              type="text"
+              id="link-label-input"
+              class="form-input"
+              placeholder="Nama (contoh: Google)"
+              maxlength="30"
+              aria-label="Nama link"
+            />
+            <input
+              type="url"
+              id="link-url-input"
+              class="form-input"
+              placeholder="URL (contoh: https://google.com)"
+              aria-label="URL link"
+            />
+          </div>
+          <button id="add-link-btn" class="btn btn-primary btn-full">+ Tambah Link</button>
+        </div>
+      </section>
+
+    </div>
+
+    <section class="card card-todo" aria-labelledby="todo-title">
+      <div class="card-header">
+        <h2 id="todo-title" class="card-title">
+          <span class="card-icon">📋</span> To-Do List
+        </h2>
+        <div class="todo-stats">
+          <span id="todo-count" class="todo-count">0 task</span>
+        </div>
+      </div>
+
+      <div class="add-task-form">
+        <label for="task-input" class="sr-only">Tambah task baru</label>
+        <input
+          type="text"
+          id="task-input"
+          class="form-input"
+          placeholder="Tambah task baru..."
+          maxlength="120"
+          autocomplete="off"
+          aria-label="Task baru"
+        />
+        <button id="add-task-btn" class="btn btn-primary" aria-label="Tambah task">+ Tambah</button>
+      </div>
+
+      <div class="todo-filters" role="tablist" aria-label="Filter task">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Semua</button>
+        <button class="filter-btn" data-filter="active" role="tab" aria-selected="false">Aktif</button>
+        <button class="filter-btn" data-filter="completed" role="tab" aria-selected="false">Selesai</button>
+      </div>
+
+      <ul id="task-list" class="task-list" role="list" aria-label="Daftar task"></ul>
+
+      <div id="empty-state" class="empty-state" hidden>
+        <p>Belum ada task. Yuk tambahkan! 🚀</p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p class="footer-text">Life Dashboard &copy; <span id="footer-year"></span> — Dibuat dengan ❤️</p>
+  </footer>
+
+  <div id="edit-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title" hidden>
+    <div class="modal-card">
+      <h2 id="edit-modal-title" class="modal-title">Edit Task</h2>
+      <label for="edit-task-input" class="form-label">Nama task</label>
+      <input
+        type="text"
+        id="edit-task-input"
+        class="form-input"
+        placeholder="Nama task..."
+        maxlength="120"
+        autocomplete="off"
+      />
+      <div class="modal-actions">
+        <button id="save-edit-btn" class="btn btn-primary">Simpan</button>
+        <button id="cancel-edit-btn" class="btn btn-ghost">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

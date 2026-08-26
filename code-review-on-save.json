@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Code Review on Save",
+      "trigger": "PostFileSave",
+      "description": "Review kode setiap kali file JS atau CSS disimpan",
+      "matcher": "\\.(js|css)$",
+      "action": {
+        "type": "agent",
+        "prompt": "File project To-Do Life Dashboard baru saja disimpan. Periksa apakah perubahan ini melanggar aturan berikut: (1) tidak menggunakan framework eksternal, (2) tidak ada inline JavaScript berlebihan, (3) data pengguna yang dimasukkan ke innerHTML sudah di-escape dengan escapeHtml(), (4) operasi LocalStorage menggunakan lsGet() dan lsSet(), (5) tidak ada alert() browser — gunakan showToast(). Jika ada pelanggaran, beritahu secara singkat."
+      }
+    }
+  ]
+}

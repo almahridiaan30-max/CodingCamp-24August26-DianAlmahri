@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "New File Standards Reminder",
+      "trigger": "PostFileCreate",
+      "description": "Ingatkan standar kode project saat ada file baru dibuat",
+      "matcher": "\\.(html|css|js)$",
+      "action": {
+        "type": "agent",
+        "prompt": "File baru dibuat di project To-Do List Life Dashboard. Ingatkan bahwa: project ini hanya boleh memiliki 1 file CSS (css/style.css) dan 1 file JS (js/script.js). Jangan buat file CSS atau JS tambahan. Pastikan file baru mengikuti konvensi project yang sudah ada."
+      }
+    }
+  ]
+}
